@@ -66,7 +66,6 @@
   (let ((cmd (concat "netstat -ltn | grep " (int-to-string autotest-spork-port))))
     (not (string= (shell-command-to-string cmd) ""))))
 
-; default-directory
 (defun* autotest ()
   "Start autotest"
   (interactive)
