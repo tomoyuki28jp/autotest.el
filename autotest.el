@@ -98,7 +98,7 @@
   (interactive)
   (when (get-buffer autotest-buffer)
     (kill-buffer autotest-buffer))
-  (when (get-buffer autotest-spork-buffer)
+  (when (and autotest-use-spork (get-buffer autotest-spork-buffer))
     (kill-buffer autotest-spork-buffer))
   (message "Autotest stopped!"))
 
