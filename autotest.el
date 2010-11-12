@@ -90,7 +90,8 @@
     (delete-window))
   (if (get-buffer autotest-buffer)
       (message "Already running autotest? Try `M-x autotest-restart` instead.")
-    (comint-simple-send (shell autotest-buffer) autotest-command)))
+    (comint-simple-send (shell autotest-buffer) autotest-command)
+    (message "Autotest starting...")))
 
 (defun autotest-stop ()
   "Stop autotest"
@@ -98,7 +99,8 @@
   (when (get-buffer autotest-buffer)
     (kill-buffer autotest-buffer))
   (when (get-buffer autotest-spork-buffer)
-    (kill-buffer autotest-spork-buffer)))
+    (kill-buffer autotest-spork-buffer))
+  (message "Autotest stopped!"))
 
 (defun autotest-restart ()
   "Restart autotest"
