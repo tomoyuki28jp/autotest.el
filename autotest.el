@@ -105,3 +105,5 @@
   (interactive)
   (autotest-stop)
   (autotest))
+
+(provide 'autotest)
