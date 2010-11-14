@@ -62,6 +62,8 @@
   :type 'string
   :group 'autotest)
 
+(defvar rails-app-directory)
+
 (defun autotest-spork-running-p ()
   (let ((cmd (concat "netstat -ltn | grep " (int-to-string autotest-spork-port))))
     (not (string= (shell-command-to-string cmd) ""))))
@@ -74,7 +76,7 @@
     (set (make-local-variable 'comint-scroll-show-maximum-output) t)
     (set (make-local-variable 'comint-scroll-to-bottom-on-output) t)
     (compilation-shell-minor-mode)
-    (comint-simple-send buffer command)))
+    (comint-simple-send buffer (concat "cd " rails-app-directory " && " command))))
 
 (defun* autotest ()
   "Start autotest"
@@ -87,7 +89,7 @@
     (unless (file-exists-p (concat dir "config/boot.rb"))
       (message "Not rails app dir?")
       (return-from autotest))
-    (setq default-directory dir))
+    (setq rails-app-directory dir))
   (when (and autotest-use-spork (not (autotest-spork-running-p)))
     (comint-simple-send* autotest-spork-buffer autotest-spork-command)
     (delete-window))
